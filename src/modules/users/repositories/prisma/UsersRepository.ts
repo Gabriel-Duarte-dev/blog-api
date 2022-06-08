@@ -1,5 +1,5 @@
 import { prisma } from "../../../../prisma";
-import { CreateUserDTO, UserDTO } from "../../dtos/user";
+import { AuthUserDTO, CreateUserDTO, UserDTO } from "../../dtos/user";
 import { IUsersRepository } from "../IUsersRepository";
 
 export class UsersRepository implements IUsersRepository {
@@ -12,15 +12,18 @@ export class UsersRepository implements IUsersRepository {
       },
     });
 
-    const createUser = {
+    const createdUser = {
       email: user.email,
       site: user.site,
     };
 
-    return createUser;
+    return createdUser;
   }
 
-  async findByEmailAndSite({ email, site }: UserDTO): Promise<UserDTO | null> {
+  async findByEmailAndSite({
+    email,
+    site,
+  }: UserDTO): Promise<AuthUserDTO | null> {
     const user = await prisma.users.findFirst({
       where: {
         email,
@@ -29,5 +32,21 @@ export class UsersRepository implements IUsersRepository {
     });
 
     return user;
+  }
+
+  async findById(id: string): Promise<AuthUserDTO | null> {
+    const user = await prisma.users.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    return user;
+  }
+
+  async list(): Promise<AuthUserDTO[] | []> {
+    const users = prisma.users.findMany();
+
+    return users;
   }
 }

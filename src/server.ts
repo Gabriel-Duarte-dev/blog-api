@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "express-async-errors";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
@@ -26,6 +27,6 @@ app.use(
   }
 );
 
-app.listen(process.env.PORT || 3333, () => {
+app.listen(process.env.PORT || 4000, () => {
   console.log("HTTP server runing in", process.env.PORT);
 });
