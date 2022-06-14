@@ -8,10 +8,36 @@ datasource db {
 }
 
 model Users {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   email    String
   password String
   site     String
+  blog     Blogs[]
 
   @@map("users")
+}
+
+model Blogs {
+  id        String     @id @default(uuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  title     String
+  content   String
+  image     String
+  comments  Comments[]
+  author    Users      @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@map("blogs")
+}
+
+model Comments {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comment   String
+  blog      Blogs    @relation(fields: [blogId], references: [id])
+  blogId    String
+
+  @@map("comments")
 }

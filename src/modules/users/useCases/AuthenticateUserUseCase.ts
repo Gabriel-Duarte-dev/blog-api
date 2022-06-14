@@ -30,6 +30,7 @@ export class AuthenticateUserUseCase {
     const tokenReturn = {
       user: {
         email: user.email,
+        site: user.site,
       },
       token,
     };
