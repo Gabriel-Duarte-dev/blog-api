@@ -21,10 +21,12 @@ export class BlogsRepository implements IBlogsRepository {
     return blog;
   }
 
-  async findByUser(userId: string): Promise<CreateBlogDTO[] | []> {
+  async findBySite(site: string): Promise<CreateBlogDTO[] | []> {
     const blogs = await prisma.blogs.findMany({
       where: {
-        userId: userId,
+        author: {
+          site: site,
+        },
       },
     });
 

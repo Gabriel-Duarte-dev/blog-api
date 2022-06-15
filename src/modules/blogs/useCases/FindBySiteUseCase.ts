@@ -1,10 +1,10 @@
 import { IBlogsRepository } from "../repositories/IBlogsRepository";
 
-export class FindByUserUseCase {
+export class FindBySiteUseCase {
   constructor(private iBlogsRepository: IBlogsRepository) {}
 
-  async execute(userId: string) {
-    const blogs = await this.iBlogsRepository.findByUser(userId);
+  async execute(site: string) {
+    const blogs = await this.iBlogsRepository.findBySite(site);
 
     return blogs;
   }

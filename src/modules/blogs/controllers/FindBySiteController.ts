@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { BlogsRepository } from "../repositories/prisma/BlogsRepository";
-import { FindByUserUseCase } from "../useCases/FindByUserUseCase";
+import { FindBySiteUseCase } from "../useCases/FindBySiteUseCase";
 
-export class FindByUserController {
+export class FindBySiteController {
   async handle(req: Request, res: Response) {
-    const userId = req.user.id;
+    const site = req.params.site;
 
     const prismaBlogRepository = new BlogsRepository();
-    const findByUserUseCase = new FindByUserUseCase(prismaBlogRepository);
+    const findBySiteUseCase = new FindBySiteUseCase(prismaBlogRepository);
 
-    const result = await findByUserUseCase.execute(userId);
+    const result = await findBySiteUseCase.execute(site);
 
     return res.status(201).json(result);
   }
