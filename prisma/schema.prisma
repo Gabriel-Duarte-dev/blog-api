@@ -22,13 +22,23 @@ model Blogs {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   title     String
-  content   String
+  content   Content[]
   image     String
   comments  Comments[]
   author    Users      @relation(fields: [userId], references: [id])
   userId    String
 
   @@map("blogs")
+}
+
+model Content {
+  id        String @id @default(uuid())
+  subtitle  String
+  paragraph String
+  blog      Blogs  @relation(fields: [blogId], references: [id])
+  blogId    String
+
+  @@map("content")
 }
 
 model Comments {

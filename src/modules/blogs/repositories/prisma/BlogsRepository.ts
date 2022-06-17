@@ -12,7 +12,9 @@ export class BlogsRepository implements IBlogsRepository {
     const blog = await prisma.blogs.create({
       data: {
         title,
-        content,
+        content: {
+          create: content,
+        },
         image,
         userId,
       },
@@ -27,6 +29,9 @@ export class BlogsRepository implements IBlogsRepository {
         author: {
           site: site,
         },
+      },
+      include: {
+        content: true,
       },
     });
 
