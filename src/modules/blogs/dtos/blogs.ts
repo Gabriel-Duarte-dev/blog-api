@@ -1,5 +1,3 @@
-import { CreateCommentDTO } from "./comments";
-
 export interface CreateBlogDTO {
   title: string;
   content?: ContentDTO[];
